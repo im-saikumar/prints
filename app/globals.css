@@ -17,13 +17,29 @@
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  /* color: rgb(var(--foreground-rgb));
   background: linear-gradient(
       to bottom,
       transparent,
       rgb(var(--background-end-rgb))
     )
-    rgb(var(--background-start-rgb));
+    rgb(var(--background-start-rgb)); */
+    background-color: #F4F4F8;
+}
+
+.primary{
+  background: #1D83E0;
+  color: #D4EAFF;
+}
+.font-primary{
+  color: #1D83E0;
+}
+.font-secondary{
+  color: #D4EAFF;
+}
+
+.secondary{
+  background: #D4EAFF;
 }
 
 @layer utilities {
