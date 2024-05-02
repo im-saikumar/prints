@@ -2,10 +2,10 @@
 import React, { useState } from "react";
 import { Layout } from "../components/Layout";
 import { websiteUrl } from "../exports/exportfiles";
-import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation";
 
 const Page = () => {
-  const pathname = usePathname()
+  const pathname = usePathname();
   const [pending, setPending] = useState<Boolean>(true);
   const buttonStyle = `h-10 mt-2 w-full rounded-lg justify-center flex items-center ${
     pending ? "bg-black  text-white" : "bg-gray-200 text-gray-600"
@@ -20,78 +20,80 @@ const Page = () => {
     price: Number;
   }
 
-  async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
-    event.preventDefault();
-    const formData = new FormData(event.currentTarget);
-    const { title, description, category, price, thumbnailUrl } =
-      Object.fromEntries(formData.entries()) as any;
-    const imageUrls: string[] = [];
-    const files = formData.getAll("imageUrl");
+  // async function submitHandler(event: React.FormEvent<HTMLFormElement>) {
+  //   event.preventDefault();
+  //   const formData = new FormData(event.currentTarget);
+  //   const { title, description, category, price, thumbnailUrl } =
+  //     Object.fromEntries(formData.entries()) as any;
+  //   const imageUrls: string[] = [];
+  //   const files = formData.getAll("imageUrl");
 
-    for (const file of files) {
-      const base64 = await readAsDataURL(file as File);
-      imageUrls.push(base64);
-    }
+  //   for (const file of files) {
+  //     const base64 = await readAsDataURL(file as File);
+  //     imageUrls.push(base64);
+  //   }
 
-    const thumbnailUrlbase64 = await thumbnailBase24(thumbnailUrl);
+  //   const thumbnailUrlbase64 = await thumbnailBase24(thumbnailUrl);
 
-    const data: T = {
-      title: title as string,
-      description: description as string,
-      thumbnailUrl: thumbnailUrlbase64,
-      imageUrl: imageUrls,
-      category: category as string,
-      price: Number(price),
-    };
-    // console.log(data);
-    await upload(data);
-  }
+  //   const data: T = {
+  //     title: title as string,
+  //     description: description as string,
+  //     thumbnailUrl: thumbnailUrlbase64,
+  //     imageUrl: imageUrls,
+  //     category: category as string,
+  //     price: Number(price),
+  //   };
+  //   // console.log(data);
+  //   await upload(data);
+  // }
 
-  // Function to read file as data URL
-  async function readAsDataURL(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
+  // async function readAsDataURL(file: File): Promise<string> {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => resolve(reader.result as string);
+  //     reader.onerror = reject;
+  //     reader.readAsDataURL(file);
+  //   });
+  // }
 
-  function thumbnailBase24(file: File): Promise<string> {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader();
-      reader.onloadend = () => resolve(reader.result as string);
-      reader.onerror = reject;
-      reader.readAsDataURL(file);
-    });
-  }
-  console.log(websiteUrl)
+  // function thumbnailBase24(file: File): Promise<string> {
+  //   return new Promise((resolve, reject) => {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => resolve(reader.result as string);
+  //     reader.onerror = reject;
+  //     reader.readAsDataURL(file);
+  //   });
+  // }
+  // console.log(websiteUrl)
 
-  async function upload(body: object) {
-    setPending(false);
-    try {
-      const response = await fetch(`${websiteUrl}/lib/api/products`, {
-        method: "POST",
-        body: JSON.stringify(body),
-        cache: "no-cache",
-      });
-      if (!response.ok) {
-        throw new Error(`API call failed with status ${response.status}`);
-      }
-      const data = await response.json();
-      console.log(data);
-      setPending(true);
-    } catch (error) {
-      console.error("Error fetching data:", error);
-      setPending(true);
-    }
-  }
+  // async function upload(body: object) {
+  //   setPending(false);
+  //   try {
+  //     const response = await fetch(`${websiteUrl}/lib/api/products`, {
+  //       method: "POST",
+  //       body: JSON.stringify(body),
+  //       cache: "no-cache",
+  //     });
+  //     if (!response.ok) {
+  //       throw new Error(`API call failed with status ${response.status}`);
+  //     }
+  //     const data = await response.json();
+  //     console.log(data);
+  //     setPending(true);
+  //   } catch (error) {
+  //     console.error("Error fetching data:", error);
+  //     setPending(true);
+  //   }
+  // }
 
   return (
     <Layout>
       <div className="h-5/4 bg-stone-50 w-3/4">
         <center className="p-4">
-          <form className="flex flex-col w-80" onSubmit={submitHandler}>
+          <form
+            className="flex flex-col w-80"
+            // onSubmit={submitHandler}
+          >
             <p className="text-2xl my-2 font-bold text-left">Card details</p>
             <label className="text-left">Images upload</label>
             <label className="text-left">Thumbnail upload</label>
