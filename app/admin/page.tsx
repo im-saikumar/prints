@@ -69,7 +69,7 @@ const Page = () => {
   // async function upload(body: object) {
   //   setPending(false);
   //   try {
-  //     const response = await fetch(`${websiteUrl}/lib/api/products`, {
+  //     const response = await fetch(`  /lib/api/products`, {
   //       method: "POST",
   //       body: JSON.stringify(body),
   //       cache: "no-cache",
