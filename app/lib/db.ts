@@ -17,11 +17,11 @@ export async function connectDb() {
   }
 
   try {
-    const db = await mongoose.connect(MONGODB_URI, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-    // const db = await mongoose.connect(MONGODB_URI);
+    // const db = await mongoose.connect(MONGODB_URI, {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    // });
+    const db = await mongoose.connect(MONGODB_URI);
     cachedDb = db;
     console.log('MongoDB connected successfully');
     return db;
