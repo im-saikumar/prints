@@ -1,26 +1,37 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import { Layout } from "../components/Layout";
 
-async function fetchData() {
-  try {
-    const response = await fetch("http://localhost:3000/lib/api/products"); // Replace '/api/test' with your actual API route path
-    if (!response.ok) {
-      throw new Error(`API call failed with status ${response.status}`);
-    }
-    const data = await response.json();
-    console.log(data); // This will log { message: "This is a test API endpoint!" }
-  } catch (error) {
-    console.error("Error fetching data:", error);
-  }
-}
-const page = async () => {
-  const data = await fetchData();
 
+const Page = () => {
+  const [data, setData] = useState<any[]>([]);
+  async function fetchData() {
+    try {
+      // const response = await fetch('/lib/api'); // Replace '/api/test' with your actual API route path
+      const response = await fetch("/lib/api/products"); // Replace '/api/test' with your actual API route path
+      if (!response.ok) {
+        throw new Error(`API call failed with status ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data); // This will log { message: "This is a test API endpoint!" }
+      setData(data); // This will log { message: "This is a test API endpoint!" }
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+  }, []);
   return (
     <Layout>
-      <div>page</div>
+      <div>
+        {data.map((data, i) => {
+          return <li key={i}>{data.category}</li>;
+        })}
+      </div>
     </Layout>
   );
 };
 
-export default page;
+export default Page;
