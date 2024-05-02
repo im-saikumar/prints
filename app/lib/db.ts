@@ -23,7 +23,7 @@ export async function connectDb() {
     // });
     const db = await mongoose.connect(MONGODB_URI);
     cachedDb = db;
-    console.log('MongoDB connected');
+    console.log('MongoDB connected successfully');
     return db;
   } catch (error) {
     console.error('MongoDB connection error:', error);
