@@ -5,7 +5,7 @@ type User = string;
 const weddingCardSchema = new Schema<WeddingCardType>({
   title: { type: String, required: true }, // Title of the wedding card
   description: { type: String, required: true }, // Description of the card
-  imageUrl: { type: [String], required: true }, // URL of the card image
+  imageUrl: [{ type: String, required: true }], // URL of the card image
   thumbnailUrl: { type: String, required: false }, // Optional URL of a thumbnail image
   category: { type: String, required: true }, // Category of the card (e.g., Hindu, Muslim, Christian)
   subCategory: { type: String, required: false }, // Optional sub-category (e.g., Traditional, Modern)
