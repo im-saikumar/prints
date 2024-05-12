@@ -23,7 +23,7 @@ import { Data } from "aws-sdk/clients/firehose";
 
 const post = WeddingCard;
 
-export const s3Client: Object | any = new S3Client({
+const s3Client: Object | any = new S3Client({
   region: S3_REGION as string, // Replace with your S3 region
   credentials: {
     accessKeyId: AWS_ACCESS_KEY_ID as string, // Replace with your credentials

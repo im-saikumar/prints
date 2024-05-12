@@ -1,8 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import connectDb from "../../db";
-import { s3Client } from "../products/route";
-import { PutObjectCommand } from "@aws-sdk/client-s3";
-import { AWS_S3_BUCKET_NAME, S3_REGION } from "@/app/exports/exportfiles";
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { AWS_ACCESS_KEY_ID, AWS_S3_BUCKET_NAME, AWS_SECRET_ACCESS_KEY, S3_REGION } from "@/app/exports/exportfiles";
 import heroimage, { HeroImage } from "../../schemas/heroimage";
 
 const post = heroimage;
@@ -18,6 +17,15 @@ export async function GET(request: NextRequest) {
     });
   }
 }
+
+const s3Client: Object | any = new S3Client({
+  region: S3_REGION as string, // Replace with your S3 region
+  credentials: {
+    accessKeyId: AWS_ACCESS_KEY_ID as string, // Replace with your credentials
+    secretAccessKey: AWS_SECRET_ACCESS_KEY as string, // Replace with your credentials
+  },
+});
+
 export async function POST(request: NextRequest) {
   const formData = await request.formData();
   const title = formData.get("title");
