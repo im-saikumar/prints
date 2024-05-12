@@ -17,7 +17,7 @@ export const Homepage = () => {
           <LandingImage />
         </Suspense>
       </div>
-      <section className="mt-8">
+      {/* <section className="mt-8">
         <div className="flex justify-between mx-3">
           <p className="font-medium">Latest collections</p>
           <Link href="/explore">
@@ -55,12 +55,7 @@ export const Homepage = () => {
             return <WeddingCard key={i} id={i} />;
           })}
         </div>
-      </section>
-      {/* <div className="flex min-w-full">
-        <Link href="/explore">
-          <Button>submit</Button>
-        </Link>
-      </div> */}
+      </section> */}
     </div>
   );
 };

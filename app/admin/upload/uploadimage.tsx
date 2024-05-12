@@ -1,12 +1,36 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import { T } from "./page";
+import { redirect } from "next/navigation";
 
-const UploadImage = ({imageUpoad} : any) => {
-  // const [pending, setPending] = useState<Boolean>(true);
-  // const [state, formAction] = useFormState(imageUpoad, { message: null });
+const UploadImage = () => {
+  const [pending, setPending] = useState<Boolean>(false);
+  async function imageUpoad(formData: FormData) {
+    setPending(true);
+    try {
+      const response = await fetch("/lib/api/products", {
+        method: "POST",
+        body: formData,
+        cache: "no-cache",
+      });
 
-  // const { pending } = useFormStatus();
-  const pending = false;
+      if (!response.ok) {
+        throw new Error(`API call failed with status ${response.status}`);
+      }
+      const data = await response.json();
+      setPending(false);
+      console.log(data);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    } finally {
+      redirect("/explore");
+    }
+  }
+
+  function reset() {
+    setPending(false);
+  }
+
   const buttonStyle = `h-10 mt-2 w-full rounded-lg justify-center flex items-center ${
     !pending ? "bg-black  text-white" : "bg-gray-200 text-gray-600"
   }`;
@@ -71,13 +95,17 @@ const UploadImage = ({imageUpoad} : any) => {
           />
 
           <div className="text-center">
-            <button className={buttonStyle} disabled={pending} type="submit">
+            <button
+              className={buttonStyle}
+              disabled={pending as boolean}
+              type="submit"
+            >
               {!pending ? "Submit" : "Uploading"}
             </button>
             <button
               className={`h-10 mt-2 w-full rounded-lg justify-center flex items-center bg-gray-200 text-gray-600`}
               type="reset"
-              // onClick={reset}
+              onClick={reset}
             >
               Reset
             </button>

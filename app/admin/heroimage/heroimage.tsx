@@ -9,7 +9,7 @@ export function PreviewImage({ image }: { image: string }) {
       // Importing an image will
       // automatically set the width and height
       src={image}
-      sizes="10vw"
+      sizes="20vw"
       height={100}
       width={100}
       quality={50}

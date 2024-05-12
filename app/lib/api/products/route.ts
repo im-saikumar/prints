@@ -52,11 +52,77 @@ export async function GET(request: Request) {
 
 export async function POST(request: NextRequest, response: NextResponse) {
   const formData = await request.formData();
-  const name = formData.get("name");
-  const email = formData.get("email");
+  const title = formData.get("title");
+  const description = formData.get("description");
+  const category = formData.get("category");
+  const price = formData.get("price");
+  const thumbnailUrl = formData.get("thumbnailUrl") as File;
+  const imageUrl = formData.getAll("imageUrl") as File[];
   try {
     await connectDb();
-    return Response.json({ name, email });
+    let thumbnailPath: string | undefined;
+    let imagesPath: String[] = [];
+
+    if (thumbnailUrl?.size > 0) {
+      if (!thumbnailUrl.type.startsWith("image/")) {
+        console.error("Not an image file");
+        return;
+      }
+
+      const buffer = (await thumbnailUrl.arrayBuffer()) as Buffer;
+      // Build S3 upload parameters
+      const { name, type } = thumbnailUrl;
+      const params: any = new PutObjectCommand({
+        Bucket: AWS_S3_BUCKET_NAME, // Replace with your bucket name
+        Key: `thumbnails/${name}`, // Use original filename
+        Body: buffer,
+        ContentType: type,
+        ACL: "public-read",
+      });
+
+      // Upload the file to S3
+      await s3Client.send(params);
+      const path = params.input.Key;
+      thumbnailPath = `https://${AWS_S3_BUCKET_NAME}.s3.${S3_REGION}.amazonaws.com/${path}`;
+    }
+
+    for (const ddx in imageUrl) {
+      if (imageUrl[ddx]?.size > 0) {
+        if (!imageUrl[ddx].type.startsWith("image/")) {
+          console.error("Not an image file");
+          return;
+        }
+
+        const buffer = (await imageUrl[ddx].arrayBuffer()) as Buffer;
+        // Build S3 upload parameters
+        const { name, type } = imageUrl[ddx];
+        const params: any = new PutObjectCommand({
+          Bucket: "store4cards", // Replace with your bucket name
+          Key: `cardsstore/${name}`, // Use original filename
+          Body: buffer,
+          ContentType: type,
+          ACL: "public-read",
+        });
+
+        // Upload the file to S3
+        await s3Client.send(params);
+        const path = params.input.Key;
+        imagesPath.push(
+          `https://store4cards.s3.${S3_REGION}.amazonaws.com/${path}`
+        );
+      }
+    }
+
+    const newCard: T | any = {
+      title: title,
+      description: description,
+      imageUrl: imagesPath,
+      category: category,
+      thumbnailUrl: thumbnailPath,
+      price: price,
+    };
+    await post.create(newCard);
+    return NextResponse.json({ message: "Success" });
   } catch (error) {
     console.error(error);
     return new NextResponse("Error fetching wedding cards" + error, {
