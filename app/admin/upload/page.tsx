@@ -4,7 +4,6 @@ import { redirect, usePathname } from "next/navigation";
 import { useFormStatus } from "react-dom";
 import { json } from "node:stream/consumers";
 import UploadImage from "./uploadimage";
-import { createPost } from "@/app/lib/api/products/route";
 
 export interface T {
   title: String;
