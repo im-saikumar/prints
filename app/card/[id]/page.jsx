@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import QuantityList from "./QuantityList";
+import { Router } from "next/router";
 
 const Page = () => {
   const params = useParams();
@@ -49,8 +50,10 @@ const Page = () => {
     <Layout>
       <section className="min-w-full text-center flex-col md:max-w-2xl">
         <div className="my-5 flex container min-w-full justify-center">
-          <Circle>
-            <Link href={"/"}>{backarrow}</Link>
+          <Circle onClick={() => {Router.back(); console.log("first")}}>
+            {/* <Link href={"/"}> */}
+              {backarrow}
+              {/* </Link> */}
           </Circle>
           <div className="text-2xl mx-2 font-bold">
             wedding card {params.id}

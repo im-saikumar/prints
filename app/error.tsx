@@ -1,6 +1,9 @@
 "use client"; // Error components must be Client Components
 
 import { useEffect } from "react";
+import { Layout } from "./components/Layout";
+import { Button } from "./ui/Button";
+import Link from "next/link";
 
 export default function Error({
   error,
@@ -15,9 +18,16 @@ export default function Error({
   }, [error]);
 
   return (
-    <div className="justify-center items-center flex flex-col">
-      <h2 className="text-4xl font-bold">Something went wrong!</h2>
-      <button onClick={() => reset()}>Try again</button>
-    </div>
+    <Layout>
+      <div className="justify-center items-center flex flex-col">
+        <h2 className="m-2 text-4xl font-bold">Something went wrong!</h2>
+        <button
+          className="primary  hover:bg-[#1971c4] py-2 w-40 h-10 rounded"
+          onClick={() => reset()}
+        >
+          Try again
+        </button>
+      </div>
+    </Layout>
   );
 }
