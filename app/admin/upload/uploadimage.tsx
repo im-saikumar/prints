@@ -1,7 +1,6 @@
 "use client";
-import React, { useState } from "react";
-import { T } from "./page";
 import { redirect } from "next/navigation";
+import React, { useState } from "react";
 
 const UploadImage = () => {
   const [pending, setPending] = useState<Boolean>(false);
@@ -11,19 +10,19 @@ const UploadImage = () => {
       const response = await fetch("/lib/api/products", {
         method: "POST",
         body: formData,
-        cache: "no-cache",
+        cache: 'no-store'
       });
 
       if (!response.ok) {
         throw new Error(`API call failed with status ${response.status}`);
       }
       const data = await response.json();
-      setPending(false);
-      console.log(data);
+      // console.log(data);
     } catch (error) {
       console.error("Error fetching data:", error);
     } finally {
-      redirect("/explore");
+      setPending(false);
+      redirect("/admin");
     }
   }
 
@@ -36,9 +35,12 @@ const UploadImage = () => {
   }`;
 
   return (
-    <div className="h-5/4 bg-stone-50 w-3/4">
+    <div className="container h-5/4 bg-stone-50">
       <center className="p-4">
-        <form className="flex flex-col w-80" action={imageUpoad}>
+        <form
+          className="flex flex-col lg:w-80 md:w-80 sm:w-auto"
+          action={imageUpoad}
+        >
           <p className="text-2xl my-2 font-bold text-left">Card details</p>
           <label className="text-left">Thumbnail upload</label>
           <input
