@@ -6,7 +6,7 @@ export const Button = ({ children, ...props }: Children | any) => {
   return (
     <button
       {...props}
-      className="primary hover:text-white  hover:bg-[#1971c4] py-2 w-40 h-10 rounded"
+      className="primary hover:text-white  hover:bg-[#1971c4] py-2 md:w-40 sm:w-auto h-10 rounded"
     >
       {children}
     </button>
@@ -17,7 +17,7 @@ export const SecondaryButton = ({ children, ...props }: Children | any) => {
   return (
     <button
       {...props}
-      className="bg-gray-300 text-gray-800 hover:bg-gray-400 py-2 w-40 h-10 rounded"
+      className="bg-gray-300 text-gray-800 hover:bg-gray-400 py-2 md:w-40 sm:w-auto h-10 rounded"
     >
       {children}
     </button>

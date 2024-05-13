@@ -11,7 +11,7 @@ const LandingImage = () => {
 
   async function fetchHeroImage() {
     try {
-      const response = await fetch("/lib/api/heroimage");
+      const response = await fetch("/lib/api/heroimage", { cache: "no-store" });
       if (!response.ok) {
         throw new Error(`API call failed with status ${response.status}`);
       }

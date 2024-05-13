@@ -41,23 +41,23 @@ const Page = () => {
 
   return (
     <Layout>
-      <center className="container" style={{ minHeight: "90vh" }}>
+      <center className="container px-2" style={{ minHeight: "90vh" }}>
+        <div className="flex flex-col h-80 w-auto justify-center items-center secondary my-5 rounded">
+          {imagepath && <PreviewImage image={imagepath} />}
+          {!imagepath && (
+            <p className="font-bold text-2xl">Preview image here</p>
+          )}
+        </div>
         <form action={submit}>
-          <div className="flex flex-col h-80 w-auto justify-center items-center secondary my-5 rounded mx-2">
-            {imagepath && <PreviewImage image={imagepath} />}
-            {!imagepath && (
-              <p className="font-bold text-2xl">Preview image here</p>
-            )}
-          </div>
-          <div className="h-8 flex my-2 gap-2 justify-center">
+          <div className="flex flex-col md:flex-row my-2 gap-2 justify-center">
             <input
-              className="px-2"
+              className="px-2 my-1 h-10"
               type="text"
               placeholder="enter the title"
               name="title"
             />
             <input
-              className="px-2 bg-white"
+              className="flex pt-1.5 px-2 my-1 h-10 bg-white"
               placeholder="upload the image"
               type="file"
               name="image"
@@ -68,7 +68,7 @@ const Page = () => {
               }}
             />
           </div>
-          <section className="gap-2 flex my-5 justify-center">
+          <section className="gap-2 flex-col md:flex-row flex my-5 justify-center">
             <Button type="submit">submit</Button>
             <SecondaryButton type="reset" onClick={reset}>
               reset
