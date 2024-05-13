@@ -20,6 +20,7 @@ import { T } from "@/app/admin/upload/page";
 import { NextResponse, NextRequest } from "next/server";
 import { redirect } from "next/navigation";
 import { Data } from "aws-sdk/clients/firehose";
+import { url } from "node:inspector";
 
 const post = WeddingCard;
 
@@ -31,17 +32,33 @@ const s3Client: Object | any = new S3Client({
   },
 });
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const sort = searchParams.get("sort");
+  const publish = searchParams.get("publish");
   try {
     await connectDb();
+    let conditon: T | any = <T>{};
+    let filter = <any>{};
+    if (sort === "premium") {
+      conditon.category = sort;
+      conditon.isPublished = true;
+    }
+    if (sort === "budget") {
+      conditon.category = sort;
+      conditon.isPublished = true;
+    }
+    if (publish === "true" || sort === "latest") {
+      conditon.isPublished = true;
+      filter.updatedAt = -1;
+    } else {
+      filter._id = -1;
+    }
+
     const weddingCardslist: WeddingCardType[] = await post
-      .find(
-        { isPublished: true },
-        { imageUrl: 0, description: 0, __v: 0, createdAt: 0 }
-      )
-      .sort({ _id: -1 });
+      .find(conditon, { imageUrl: 0, description: 0, __v: 0, createdAt: 0 })
+      .sort(filter);
     return NextResponse.json(weddingCardslist);
-    // return NextResponse.json(weddingCards);
   } catch (error) {
     console.error(error);
     return new NextResponse("Error fetching wedding cards" + error, {

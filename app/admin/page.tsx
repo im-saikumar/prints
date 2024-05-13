@@ -6,7 +6,7 @@ import Link from "next/link";
 const page = () => {
   return (
     <Layout>
-      <section className="container flex flex-warp my-2 gap-2 justify-center">
+      <center className="flex lg:flex-row sm:flex-col flex-col gap-2 justify-center">
         <AdminButton>
           <Link href={"/admin/upload"}>Upload card</Link>
         </AdminButton>
@@ -19,7 +19,7 @@ const page = () => {
         <AdminButton>
           <Link href={"/admin/updatecard"}>Update cards</Link>
         </AdminButton>
-      </section>
+      </center>
     </Layout>
   );
 };

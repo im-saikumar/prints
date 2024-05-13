@@ -8,7 +8,7 @@ export default function ExploreList() {
   async function fetchData() {
     try {
       // const response = await fetch('/lib/api'); // Replace '/api/test' with your actual API route path
-      const response = await fetch("/lib/api/products"); // Replace '/api/test' with your actual API route path
+      const response = await fetch("/lib/api/products?publish=true"); // Replace '/api/test' with your actual API route path
       if (!response.ok) {
         throw new Error(`API call failed with status ${response.status}`);
       }
