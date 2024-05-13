@@ -38,7 +38,7 @@ export const AdminButton = ({ children }: Children, props: () => {}) => {
 export const arrow = "->";
 export const backarrow = "<-";
 
-export const Circle = ({ children }: Children, props: () => {}) => {
+export const Circle = ({ children, ...props }: Children | any) => {
   return (
     <button
       {...props}
