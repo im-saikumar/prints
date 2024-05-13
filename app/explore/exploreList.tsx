@@ -1,10 +1,10 @@
 "use client";
-import React, { useEffect, useState } from "react";
-import { Layout } from "../components/Layout";
+import { useEffect, useState } from "react";
+import { WeddingCardType } from "../lib/schemas/weddincardSchema";
+import { WeddingCard } from "../ui/WeddingCard";
 
-
-const Page = () => {
-  const [data, setData] = useState<any[]>([]);
+export default function ExploreList() {
+  const [data, setData] = useState<WeddingCardType[]>([]);
   async function fetchData() {
     try {
       // const response = await fetch('/lib/api'); // Replace '/api/test' with your actual API route path
@@ -13,25 +13,21 @@ const Page = () => {
         throw new Error(`API call failed with status ${response.status}`);
       }
       const data = await response.json();
-      console.log(data); // This will log { message: "This is a test API endpoint!" }
       setData(data); // This will log { message: "This is a test API endpoint!" }
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   }
-
   useEffect(() => {
     fetchData();
   }, []);
-  return (
-    <Layout>
-      <div>
-        {data.map((data, i) => {
-          return <li key={i}>{data.category}</li>;
-        })}
-      </div>
-    </Layout>
-  );
-};
 
-export default Page;
+  return (
+    <>
+      {data.length > 0 &&
+        data.map((value, i) => {
+          return <WeddingCard key={i} data={value} />;
+        })}
+    </>
+  );
+}
