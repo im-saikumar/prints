@@ -4,6 +4,7 @@ import { WeddingCard } from "../ui/WeddingCard";
 import { HeroImage } from "../admin/heroimage/heroimage";
 import Loading from "../explore/loading-in";
 import LandingImage from "./LandingImage";
+import Category from "./category";
 
 export const Homepage = () => {
   const array = new Array(1, 2, 3, 4, 5, 6);
@@ -17,45 +18,16 @@ export const Homepage = () => {
           <LandingImage />
         </Suspense>
       </div>
-      {/* <section className="mt-8">
-        <div className="flex justify-between mx-3">
-          <p className="font-medium">Latest collections</p>
-          <Link href="/explore">
-            <p className="font-primary">Explore all</p>
-          </Link>
-        </div>
-        <div className="my-6 flex flex-wrap lg:justify-start  justify-center">
-          {array.map((e, i) => {
-            return <WeddingCard key={i} id={i} />;
-          })}
-        </div>
-      </section>
-      <section>
-        <div className="flex justify-between mx-3">
-          <p className="font-medium">Premium collections</p>
-          <Link href="/explore">
-            <p className="font-primary">Explore all</p>
-          </Link>
-        </div>
-        <div className="my-6 flex flex-wrap lg:justify-start  justify-center">
-          {array.map((e, i) => {
-            return <WeddingCard key={i} id={i} />;
-          })}
-        </div>
-      </section>
-      <section>
-        <div className="flex justify-between mx-3">
-          <p className="font-medium">Budget collections</p>
-          <Link href="/explore">
-            <p className="font-primary">Explore all</p>
-          </Link>
-        </div>
-        <div className="my-6 flex flex-wrap lg:justify-start  justify-center">
-          {array.map((e, i) => {
-            return <WeddingCard key={i} id={i} />;
-          })}
-        </div>
-      </section> */}
+      <Suspense fallback={<Loading />}>
+        <Category sort="latest" />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Category sort="premium" />
+      </Suspense>
+      <Suspense fallback={<Loading />}>
+        <Category sort="budget" />
+      </Suspense>
+      
     </div>
   );
 };
