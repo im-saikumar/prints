@@ -9,7 +9,9 @@ const Category = ({ sort }: { sort: string }) => {
   async function fetchData() {
     try {
       // const response = await fetch('/lib/api'); // Replace '/api/test' with your actual API route path
-      const response = await fetch(`/lib/api/products?sort=${sort}`); // Replace '/api/test' with your actual API route path
+      const response = await fetch(`/lib/api/products?sort=${sort}`, {
+        cache: "no-store",
+      }); // Replace '/api/test' with your actual API route path
       if (!response.ok) {
         throw new Error(`API call failed with status ${response.status}`);
       }
