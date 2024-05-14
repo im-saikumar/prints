@@ -23,8 +23,24 @@ const Category = ({ sort }: { sort: string }) => {
     }
   }
   useEffect(() => {
+    async function fetchData() {
+      try {
+        // const response = await fetch('/lib/api'); // Replace '/api/test' with your actual API route path
+        const response = await fetch(`/lib/api/products?sort=${sort}`, {
+          cache: "no-store",
+        }); // Replace '/api/test' with your actual API route path
+        if (!response.ok) {
+          throw new Error(`API call failed with status ${response.status}`);
+        }
+        const data = await response.json();
+        const firstSixList = data.slice(0, 5);
+        setData(firstSixList); // This will log { message: "This is a test API endpoint!" }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    }
     fetchData();
-  }, []);
+  }, [sort]);
 
   return (
     <section className="mt-8">

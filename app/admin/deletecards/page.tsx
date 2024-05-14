@@ -1,5 +1,4 @@
 "use client";
-import { Layout } from "@/app/components/Layout";
 import React, { Suspense, useEffect, useState } from "react";
 import { WeddingCardType } from "@/app/lib/schemas/weddincardSchema";
 import AlertModal from "@/app/components/Modal";
@@ -51,7 +50,7 @@ const Page = () => {
   }
 
   return (
-    <Layout>
+    <div>
       <Suspense fallback={<Loading />}>
         <CardList cardlist={data} model={model} />
       </Suspense>
@@ -61,7 +60,7 @@ const Page = () => {
           onOkay={() => deletCard(cardId)}
         />
       )}
-    </Layout>
+    </div>
   );
 };
 
