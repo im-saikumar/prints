@@ -18,7 +18,7 @@ const page = () => {
         <Link href={"/admin/updatecard"}>Update cards</Link>
       </AdminButton>
       <AdminButton>
-        <Link href={"/admin/publish"}>Publish status</Link>
+        <Link href={"/admin/publish"}>Publish cards</Link>
       </AdminButton>
     </center>
   );

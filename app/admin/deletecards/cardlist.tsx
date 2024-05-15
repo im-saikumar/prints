@@ -16,9 +16,9 @@ export async function CardList({
         data.map((e, i) => (
           <section
             key={i}
-            className="flex h-20 w-full bg-blue-200 my-3 py-5 pr-2 items-center rounded"
+            className="flex h-20 w-full rounded border-dashed border-2 border-gray-400 my-3 py-5 pr-2 items-center rounded"
           >
-            <div className="flex h-20 md:w-80 w-60 bg-blue-200 my-3 py-5 pr-2 jusifty-center text-left items-center rounded">
+            <div className="flex h-20 md:w-80 w-60 my-3 py-5 pr-2 jusifty-center text-left items-center rounded">
               <div className="flex flex-col h-20 w-20 p-2">
                 <PreviewImage image={e.thumbnailUrl as string} />
               </div>
