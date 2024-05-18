@@ -1,4 +1,5 @@
 "use client";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 import React, { useState } from "react";
 
@@ -10,7 +11,7 @@ const UploadImage = () => {
       const response = await fetch("/lib/api/products", {
         method: "POST",
         body: formData,
-        cache: 'no-store'
+        // cache: 'no-store'
       });
 
       if (!response.ok) {
@@ -22,6 +23,7 @@ const UploadImage = () => {
       console.error("Error fetching data:", error);
     } finally {
       setPending(false);
+      revalidatePath("/", "layout")
       redirect("/admin");
     }
   }

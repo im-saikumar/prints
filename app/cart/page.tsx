@@ -1,7 +1,5 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Layout } from "../components/Layout";
-
 
 const Page = () => {
   const [data, setData] = useState<any[]>([]);
@@ -24,13 +22,11 @@ const Page = () => {
     fetchData();
   }, []);
   return (
-    <Layout>
-      <div>
-        {data.map((data, i) => {
-          return <li key={i}>{data.category}</li>;
-        })}
-      </div>
-    </Layout>
+    <div>
+      {data.map((data, i) => {
+        return <li key={i}>{data.category}</li>;
+      })}
+    </div>
   );
 };
 

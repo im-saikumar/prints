@@ -18,16 +18,14 @@ export default function Error({
   }, [error]);
 
   return (
-    <Layout>
-      <div className="justify-center items-center flex flex-col">
-        <h2 className="m-2 text-4xl font-bold">Something went wrong!</h2>
-        <button
-          className="primary  hover:bg-[#1971c4] py-2 w-40 h-10 rounded"
-          onClick={() => reset()}
-        >
-          Try again
-        </button>
-      </div>
-    </Layout>
+    <div className="justify-center items-center flex flex-col">
+      <h2 className="m-2 text-4xl font-bold">Something went wrong!</h2>
+      <button
+        className="primary  hover:bg-[#1971c4] py-2 w-40 h-10 rounded"
+        onClick={() => reset()}
+      >
+        Try again
+      </button>
+    </div>
   );
 }
