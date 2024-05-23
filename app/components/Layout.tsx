@@ -11,7 +11,7 @@ export const Layout = ({ children }: Children) => {
     <div>
       <Header />
       <div
-        className="min-h-full justify-center flex"
+        className="min-h-full min-w-full justify-center flex"
         style={{ minHeight: "90vh" }}
       >
         {children}

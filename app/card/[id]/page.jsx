@@ -46,7 +46,6 @@ const Page = () => {
   } text-white`;
 
   return (
-    <Layout>
       <section className="min-w-full text-center flex-col md:max-w-2xl">
         <div className="my-5 flex container min-w-full justify-center">
           <Link href={"/explore"}>
@@ -101,7 +100,6 @@ const Page = () => {
           </div>
         </main>
       </section>
-    </Layout>
   );
 };
 

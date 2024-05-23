@@ -148,6 +148,31 @@ export async function POST(request: NextRequest, response: NextResponse) {
   }
 }
 
+export async function PUT(request: NextRequest) {
+  const searchParams = request.nextUrl.searchParams;
+  const id = searchParams.get("id");
+  const publish = searchParams.get("publish");
+
+  console.log(id, publish)
+
+  try {
+    await connectDb();
+    if (!id) {
+      return NextResponse.json({ message: "please enter id" });
+    }
+
+    const postdetails = await post.findById({ _id: id });
+    if (!postdetails) {
+      return NextResponse.json({ message: "id not found" });
+    }
+    await post.updateOne({ _id: id }, { isPublished: publish });
+    return NextResponse.json({ message: "Post has been updated successfully" });
+  } catch (error: any) {
+    console.error(error.message);
+    return NextResponse.json({ message: error.message });
+  }
+}
+
 export async function DELETE(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const id = searchParams.get("id");
